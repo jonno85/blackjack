@@ -1,0 +1,68 @@
+tags:
+  - name: users
+    description: users API
+
+paths:
+  # [GET] users
+  /:
+    get:
+      tags:
+        - blackjack game
+      parameters:
+        - in: query
+          name: url
+          schema:
+            type: string
+          description: url to load a new shuffled deck
+        - in: query
+          name: player1
+          schema:
+            type: string
+          description: player 1 name
+      summary: it loads a new deck (can be passed as url) and begin a new game
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+  # [GET] player/id
+  /player/{:name}:
+    get:
+      tags:
+        - blackjack game
+      summary: draw card for player
+      parameters:
+        - name: name
+          in: path
+          description: player name
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'OK'
+          content:
+            text/plain:
+              schema:
+                type: string
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [GET] status
+  /status:
+    get:
+      tags:
+        - blackjack game
+      summary: returns the game status
+      responses:
+        200:
+          description: 'OK'
+          content:
+            text/plain:
+              schema:
+                type: string
+
+schemes:
+  - http
